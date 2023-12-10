@@ -6,17 +6,16 @@ VALUES
 ( NULL, 35123321, "Santiago", "Gonzalez", "1990-10-02", 1122435201, "santiGonzalez@yahoo.com"),
 ( NULL, 24123445, "Morena", "Paz", "1981-01-10", 1143512014, "PazMore@gmail.com"),
 ( NULL, 22549875, "Jaime", "Rodriguez", "1981-12-01", 1143579875, "JRodriguez@hotmail.com"),
-( NULL, 42002452, "Augusto", "Gimenez", "2000-02-06", 1145624625, "GimenezAgus@live.com"),
+( NULL, 42002452, "Augusto", "Gimenez", "2011-02-06", 1145624625, "GimenezAgus@live.com"),
 ( NULL, 18004562, "Federico", "Fernandez", "1985-07-16", 1135734655, "Fedefer@gmail.com"),
 ( NULL, 4245624, "Graciela", "Gaitan", "1970-02-06", 114564512, "GlaGaitan@yahoo.com"),
 ( NULL, 42125456, "Cristian", "Gonzalez", "2000-01-20", 1157624625, "Cris2000@hotmail.com"),
-( NULL, 34999945, "Carla", "Higgins", "1990-04-27", 1145624625, "GimenezAgus@live.com"),
-( NULL, 12564235, "Agustina", "Alvarez", "1980-08-18", 114561535, "GimenezAgus@live.com"),
+( NULL, 34999945, "Carla", "Higgins", "1990-04-27", 1145624625, "Higca@live.com.ar"),
+( NULL, 12564235, "Agustina", "Alvarez", "1980-08-18", 114561535, "AAlvarez@gov.com"),
 ( NULL, 50045152, "Enzo", "Perez", "2018-12-09", 1202301503, "EnzoCamp@gmail.com"),
-( NULL, 45615852, "Rodrigo", "Fernandez","2003-07-02", 1112524154, "RodriF@gmail.com");
+( NULL, 45615852, "Rodrigo", "Fernandez","2010-07-02", 1112524154, "RodriF@gmail.com");
 
 SELECT * FROM afiliados;
-
 
 INSERT INTO usuarios (id_usuario, nombre, apellido, rol)
 VALUE
@@ -68,20 +67,19 @@ SELECT * FROM prestadores;
 
 INSERT INTO autorizaciones (id_aut, id_afiliado, id_prestacion, id_prestador, id_usuario, fecha, vigencia)
 VALUES
-( NULL, 3, 2, 5, 7, CURRENT_DATE(), (CURRENT_DATE() + INTERVAL 60 DAY)),
-( NULL, 3, 2, 5, 8, CURRENT_DATE(), (CURRENT_DATE() + INTERVAL 60 DAY)),
-( NULL, 2, 4, 1, 2, CURRENT_DATE(), (CURRENT_DATE() + INTERVAL 60 DAY)),
-( NULL, 5, 3, 2, 3, CURRENT_DATE(), (CURRENT_DATE() + INTERVAL 60 DAY)),
-( NULL, 11, 3, 2, 4, CURRENT_DATE(), (CURRENT_DATE() + INTERVAL 60 DAY)),
-( NULL, 9, 8, 2, 2, CURRENT_DATE(), (CURRENT_DATE() + INTERVAL 60 DAY)),
-( NULL, 1, 5, 10, 2, CURRENT_DATE(), (CURRENT_DATE() + INTERVAL 60 DAY)),
-( NULL, 8, 2, 8, 10, CURRENT_DATE(), (CURRENT_DATE() + INTERVAL 60 DAY)),
-( NULL, 6, 10, 7, 5, CURRENT_DATE(), (CURRENT_DATE() + INTERVAL 60 DAY)),
-( NULL, 6, 9, 2, 9, CURRENT_DATE(), (CURRENT_DATE() + INTERVAL 60 DAY)),
-( NULL, 1, 2, 11, 7, CURRENT_DATE(), (CURRENT_DATE() + INTERVAL 60 DAY));
+( NULL, 3, 2, 5, 7, '2023-12-02', ('2023-12-02' + INTERVAL 60 DAY)),
+( NULL, 3, 2, 5, 8, '2023-11-22', ('2023-11-22' + INTERVAL 60 DAY)),
+( NULL, 2, 4, 1, 2, '2023-10-30', ('2023-10-30' + INTERVAL 45 DAY)),
+( NULL, 5, 3, 2, 3, '2023-10-04', ('2023-10-04' + INTERVAL 45 DAY)),
+( NULL, 11, 3, 2, 4, '2023-12-27', ('2023-12-27' + INTERVAL 45 DAY)),
+( NULL, 9, 8, 2, 2, '2023-11-06', ('2023-11-06' + INTERVAL 45 DAY)),
+( NULL, 1, 5, 10, 2, '2023-12-07', ('2023-12-07' + INTERVAL 45 DAY)),
+( NULL, 8, 2, 8, 10, '2023-10-08', ('2023-10-08' + INTERVAL 45 DAY)),
+( NULL, 6, 10, 7, 5, '2023-11-09', ('2023-11-09' + INTERVAL 45 DAY)),
+( NULL, 6, 9, 2, 9, '2023-10-10', ('2023-10-10' + INTERVAL 45 DAY)),
+( NULL, 1, 2, 11, 7, '2023-09-18', ('2023-09-18' + INTERVAL 45 DAY));
 
 SELECT * FROM autorizaciones;
-
 
 INSERT INTO historial_consumo (id_consumo, id_aut, fecha)
 VALUES
@@ -94,33 +92,35 @@ VALUES
   (NULL, 7, '2023-12-07'),
   (NULL, 8, '2023-10-08'),
   (NULL, 9, '2023-11-09'),
-  (NULL, 10, '2023-10-10');
+  (NULL, 10, '2023-10-10'),
+  (NULL, 11, '2023-09-18');
 
 
 SELECT * FROM historial_consumo;
 
 
-INSERT INTO facturas (id_factura, id_prestador, monto, fecha)
+INSERT INTO facturas (id_factura, id_prestador, monto, fecha_emision)
 VALUES
-	(NULL, 2, 128000.00, CURRENT_DATE()),
-    (NULL, 9, 45000.00, CURRENT_DATE()),
-    (NULL, 5, 12000.00, CURRENT_DATE()),
-    (NULL, 8, 11000.00, CURRENT_DATE()),
-    (NULL, 3, 10000.00, CURRENT_DATE()),
-    (NULL, 4, 7000.00, CURRENT_DATE()),
-    (NULL, 10, 6000.00, CURRENT_DATE());
+	(NULL, 2, 128000.00, '2023-12-01'),
+    (NULL, 9, 45000.00, '2023-12-05'),
+    (NULL, 5, 12000.00, '2023-12-01'),
+    (NULL, 8, 11000.00, '2023-12-01'),
+    (NULL, 3, 10000.00, '2023-12-10'),
+    (NULL, 4, 7000.00, '2023-11-30'),
+    (NULL, 10, 6000.00, '2023-12-03');
     
 SELECT * FROM facturas;
 
 
-INSERT INTO pagos (id_pago, id_factura, monto, fecha)
+INSERT INTO pagos (id_pago, id_factura, monto, fecha_pago)
 VALUES
-	(NULL, 2, 128000.00, (CURRENT_DATE + INTERVAL 30 DAY)),
-    (NULL, 9, 45000.00, CURRENT_DATE + INTERVAL 30 DAY),
-    (NULL, 5, 12000.00, CURRENT_DATE + INTERVAL 30 DAY),
-    (NULL, 8, 11000.00, CURRENT_DATE + INTERVAL 30 DAY),
-    (NULL, 3, 10000.00, CURRENT_DATE + INTERVAL 30 DAY),
-    (NULL, 4, 7000.00, CURRENT_DATE + INTERVAL 30 DAY),
-    (NULL, 10, 6000.00, CURRENT_DATE + INTERVAL 30 DAY);
+	(NULL, 1, 128000.00, ('2023-12-01' + INTERVAL 35 DAY)),
+    (NULL, 2, 45000.00, ('2023-12-05' + INTERVAL 35 DAY)),
+    (NULL, 3, 12000.00, ('2023-12-01' + INTERVAL 35 DAY)),
+    (NULL, 4, 11000.00, ('2023-12-01' + INTERVAL 35 DAY)),
+    (NULL, 5, 10000.00, ('2023-12-10' + INTERVAL 35 DAY)),
+    (NULL, 6, 7000.00, ('2023-11-30' + INTERVAL 35 DAY)),
+    (NULL, 7, 6000.00, ('2023-12-03' + INTERVAL 35 DAY));
     
 SELECT * FROM pagos;
+

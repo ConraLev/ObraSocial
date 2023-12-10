@@ -20,23 +20,23 @@ BEGIN
 END$$
 DELIMITER ;
 
-SELECT obra_social.calcular_copagos(1, 5, 3) AS Copago;
+SELECT obra_social.calcular_copagos(1, 5, 3) AS valor_copago;
 
 
 -- 2. Funcion para calcular si el afiliado es mayor de edad
 
 DELIMITER $$
-CREATE FUNCTION `descuento_menores` (id_afiliado INT) RETURNS BOOLEAN
+CREATE FUNCTION `descuento_menores` (id_af INT) RETURNS BOOLEAN
 READS SQL DATA
 BEGIN
     DECLARE fecha_nacimiento DATE;
     
 	SELECT nacimiento INTO fecha_nacimiento
     FROM afiliados
-    WHERE id_afiliado = id_afiliado
+    WHERE id_af = id_afiliado
     LIMIT 1;
 	
-    IF fecha_nacimiento < DATE_SUB(CURRENT_DATE(), INTERVAL 18 YEAR) THEN
+    IF fecha_nacimiento > DATE_SUB(CURRENT_DATE(), INTERVAL 18 YEAR) THEN
 		RETURN TRUE;
     ELSE
 		RETURN FALSE;
@@ -44,7 +44,11 @@ BEGIN
     END$$
 DELIMITER ;
 
+-- Resultado afiliado menor de edad:
+SELECT obra_social.descuento_menores(4) AS Afiliado_Menor;
 
+-- Resultado afiliado mayor de edad: 
+SELECT obra_social.descuento_menores(1) AS Afiliado_Menor;
 
 -- 3. Funcion para contar cantidad de autorizaciones vencidas
 
@@ -65,3 +69,25 @@ DELIMITER ;
 
 SELECT obra_social.auto_vencidas() AS Autorizaciones_vencidas;
 
+
+-- 4. Funcion para calcular edad del afilaido 
+
+
+DELIMITER $$
+CREATE FUNCTION `calcular_edad`(id_af INT) RETURNS INT
+READS SQL DATA
+BEGIN
+	DECLARE fecha_nacimiento DATE;
+    DECLARE edad INT;
+    
+    SELECT nacimiento INTO fecha_nacimiento
+    FROM afiliados
+    WHERE id_af = id_afiliado;
+    
+    SET edad = TIMESTAMPDIFF(YEAR, fecha_nacimiento, CURRENT_DATE());
+    
+    RETURN edad;
+END$$
+DELIMITER ;
+
+SELECT obra_social.calcular_edad(10) AS edad_afiliado;

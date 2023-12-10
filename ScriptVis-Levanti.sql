@@ -3,11 +3,12 @@
 CREATE VIEW v_DetalleAutorizacion AS
 	SELECT 
 		A.id_aut,
-		AF.nombre AS NombreAfiliado,
-		AF.apellido AS ApellidoAFiliado,
-		P.nombre AS Practica,
-		PR.nombre AS Prestador,
-        U.apellido AS AutorizadoPor,
+		AF.nombre AS nombre_afiliado,
+		AF.apellido AS apellido_afiliado,
+		P.nombre AS practica,
+        A.cantidad AS cantidad,
+		PR.nombre AS prestador,
+        U.apellido AS autorizado_por,
         A.fecha,
 		A.vigencia
 	 FROM autorizaciones A
@@ -17,7 +18,6 @@ CREATE VIEW v_DetalleAutorizacion AS
 	 JOIN prestadores PR ON A.id_prestador = PR.id_prestador;
 	
 SELECT * FROM v_DetalleAutorizacion;
-    
     
     
 -- 2. Vista de autorizaciones y deuda con prestadores
