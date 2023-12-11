@@ -2,6 +2,7 @@
 CREATE SCHEMA obra_social;
 USE obra_social;
 
+
 CREATE TABLE planes (
 	id_plan INT NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(20) NOT NULL,
@@ -13,9 +14,9 @@ CREATE TABLE planes (
 
 CREATE TABLE usuarios (
 	id_usuario INT NOT NULL AUTO_INCREMENT,
-    nombre VARCHAR (20) NOT NULL,
-    apellido VARCHAR (20) NOT NULL,
-    rol VARCHAR (30) NOT NULL,
+    nombre VARCHAR(20) NOT NULL,
+    apellido VARCHAR(20) NOT NULL,
+    rol VARCHAR(30) NOT NULL,
     PRIMARY KEY (id_usuario)
 );
 
@@ -23,12 +24,12 @@ CREATE TABLE usuarios (
 CREATE TABLE afiliados (
 	 id_afiliado INT NOT NULL AUTO_INCREMENT,
 	 dni INT NOT NULL,
-	 nombre VARCHAR (30) NOT NULL,
-	 apellido VARCHAR (30) NOT NULL,
+	 nombre VARCHAR(30) NOT NULL,
+	 apellido VARCHAR(30) NOT NULL,
 	 id_plan INT NOT NULL,
 	 nacimiento DATE NOT NULL,
-	 telefono INT,
-	 correo VARCHAR (30),
+	 telefono VARCHAR(15),
+	 correo VARCHAR(30),
 	 PRIMARY KEY (id_afiliado),
 	 FOREIGN KEY (id_plan) REFERENCES planes(id_plan)
 );
@@ -71,10 +72,12 @@ CREATE TABLE autorizaciones (
 
 CREATE TABLE historial_consumo (
 	id_consumo INT NOT NULL AUTO_INCREMENT,
+    id_afiliado INT NOT NULL,
 	id_aut INT NOT NULL,
 	fecha DATE,
 	PRIMARY KEY (id_consumo),
-	FOREIGN KEY (id_aut) REFERENCES autorizaciones(id_aut) 
+	FOREIGN KEY (id_aut) REFERENCES autorizaciones(id_aut),
+    FOREIGN KEY (id_afiliado) REFERENCES afiliados(id_afiliado)
 );
 
 

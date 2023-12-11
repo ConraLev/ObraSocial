@@ -19,8 +19,6 @@ BEGIN
     RETURN copago;
 END$$
 DELIMITER ;
-SELECT * FROM prestaciones;
-
 
 SELECT obra_social.calcular_copagos(3, 2, 15) AS valor_copago;
 

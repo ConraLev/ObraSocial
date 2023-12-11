@@ -2,19 +2,19 @@
 
 DELIMITER $$
 CREATE PROCEDURE `generar_historial` (
+	IN id_af INT,
 	IN id_auto INT
     )
 BEGIN
 	DECLARE fecha_actual DATE;
     
-    IF id_auto IS NOT NULL THEN
+    IF id_auto IS NOT NULL AND id_af IS NOT NULL THEN
 		SET fecha_actual = CURRENT_DATE();
-		INSERT INTO historial_consumo (id_consumo, id_aut, fecha)
-		VALUES (NULL, id_auto, fecha_actual);
+		INSERT INTO historial_consumo (id_consumo, id_afiliado, id_aut, fecha)
+		VALUES (NULL, id_af, id_auto, fecha_actual);
     END IF;
 END$$
 DELIMITER ;
-
 
 
 -- 2. Procedimiento para ordenar tabla segun columna informada
@@ -73,7 +73,7 @@ BEGIN
 		VALUES (NULL, id_af, id_pract, cant, id_prest, id_usu, fecha_actual, fecha_vig, calcular_copagos(id_pract, cant, porc) );
         
         SET id_generado = LAST_INSERT_ID();
-        CALL generar_historial(id_generado);
+        CALL generar_historial(id_af, id_generado);
         
 	ELSE
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Un campo ingresado no es valido';
@@ -84,8 +84,4 @@ END$$
 DELIMITER ;
 
 CALL obra_social.cargar_aut(7, 8, 1, 4, 3);
-
-
-
-    
 

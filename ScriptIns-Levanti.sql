@@ -6,7 +6,7 @@ VALUES
 (NULL, "BASICO", 20000, 10),
 (NULL, "MEDIO", 30000, 8),
 (NULL, "PLUS", 50000, 3),
-(NULL, "JUBILADO", 35000, 10);
+(NULL, "JUBILADO", 35000, 6);
 
 SELECT * FROM planes;
 
@@ -93,20 +93,19 @@ SELECT * FROM autorizaciones;
 
 
 
-INSERT INTO historial_consumo (id_consumo, id_aut, fecha)
+INSERT INTO historial_consumo (id_consumo, id_afiliado,  id_aut, fecha)
 VALUES
-  (NULL, 1, '2023-12-02'),
-  (NULL, 2, '2023-11-22'),
-  (NULL, 3, '2023-10-30'),
-  (NULL, 4, '2023-10-04'),
-  (NULL, 5, '2023-12-27'),
-  (NULL, 6, '2023-11-06'),
-  (NULL, 7, '2023-12-07'),
-  (NULL, 8, '2023-10-08'),
-  (NULL, 9, '2023-11-09'),
-  (NULL, 10, '2023-10-10'),
-  (NULL, 11, '2023-09-18');
-
+  (NULL, 3, 1, '2023-12-02'),
+  (NULL, 3, 2, '2023-11-22'),
+  (NULL, 2, 3, '2023-10-30'),
+  (NULL, 5, 4, '2023-10-04'),
+  (NULL, 11, 5, '2023-12-27'),
+  (NULL, 9, 6, '2023-11-06'),
+  (NULL, 1, 7, '2023-12-07'),
+  (NULL, 8, 8, '2023-10-08'),
+  (NULL, 6, 9, '2023-11-09'),
+  (NULL, 6, 10, '2023-10-10'),
+  (NULL, 1, 11, '2023-09-18');
 
 SELECT * FROM historial_consumo;
 
