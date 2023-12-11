@@ -10,7 +10,8 @@ CREATE VIEW v_DetalleAutorizacion AS
 		PR.nombre AS prestador,
         U.apellido AS autorizado_por,
         A.fecha,
-		A.vigencia
+		A.vigencia,
+        A.copago
 	 FROM autorizaciones A
 	 JOIN afiliados AF ON A.id_afiliado = AF.id_afiliado
 	 JOIN prestaciones P ON  A.id_prestacion = P.id_prestacion

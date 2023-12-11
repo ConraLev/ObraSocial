@@ -6,9 +6,11 @@ CREATE TABLE planes (
 	id_plan INT NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(20) NOT NULL,
     precio DECIMAL(8,2),
+    porcentaje DECIMAL(4,2),
     PRIMARY KEY (id_plan)
 );
-    
+
+
 CREATE TABLE usuarios (
 	id_usuario INT NOT NULL AUTO_INCREMENT,
     nombre VARCHAR (20) NOT NULL,
@@ -16,23 +18,22 @@ CREATE TABLE usuarios (
     rol VARCHAR (30) NOT NULL,
     PRIMARY KEY (id_usuario)
 );
- 
+
 
 CREATE TABLE afiliados (
 	 id_afiliado INT NOT NULL AUTO_INCREMENT,
 	 dni INT NOT NULL,
 	 nombre VARCHAR (30) NOT NULL,
 	 apellido VARCHAR (30) NOT NULL,
-	 id_plan VARCHAR (20) NOT NULL,
+	 id_plan INT NOT NULL,
 	 nacimiento DATE NOT NULL,
 	 telefono INT,
 	 correo VARCHAR (30),
 	 PRIMARY KEY (id_afiliado),
 	 FOREIGN KEY (id_plan) REFERENCES planes(id_plan)
 );
- 
 
- 
+
 CREATE TABLE prestaciones( 
 	 id_prestacion INT NOT NULL AUTO_INCREMENT,
 	 nombre VARCHAR (30) NOT NULL,
@@ -41,7 +42,7 @@ CREATE TABLE prestaciones(
  );
  
  
- CREATE TABLE prestadores (
+CREATE TABLE prestadores (
 	 id_prestador INT NOT NULL AUTO_INCREMENT,
 	 nombre VARCHAR (30) NOT NULL,
 	 direccion VARCHAR (30) NOT NULL,
@@ -59,6 +60,7 @@ CREATE TABLE autorizaciones (
 	id_usuario INT NOT NULL,
 	fecha DATE NOT NULL,
 	vigencia DATE NOT NULL,
+    copago INT NOT NULL,
 	PRIMARY KEY (id_aut),
 	FOREIGN KEY (id_afiliado) REFERENCES afiliados(id_afiliado),
 	FOREIGN KEY (id_prestacion) REFERENCES prestaciones(id_prestacion),
@@ -76,7 +78,7 @@ CREATE TABLE historial_consumo (
 );
 
 
-CREATE TABLE facturas (
+CREATE TABLE factura_prest (
 	id_factura INT NOT NULL AUTO_INCREMENT,
 	id_prestador INT NOT NULL,
 	monto DECIMAL(8,2),
@@ -92,20 +94,27 @@ CREATE TABLE pagos (
 	monto DECIMAL (8,2),
 	fecha_pago DATE,
 	PRIMARY KEY (id_pago),
-	FOREIGN KEY (id_factura) REFERENCES facturas(id_factura)
-);
-
-
-CREATE TABLE  descuentos (
-id_desc INT NOT NULL AUTO_INCREMENT,
-nombre VARCHAR(30) NOT NULL,
-descripcion VARCHAR (300) DEFAULT 'Sin informacion',
-porcentaje_descuento INT,
-PRIMARY KEY (id_desc)
+	FOREIGN KEY (id_factura) REFERENCES factura_prest(id_factura)
 );
 
 
 CREATE TABLE factura_af (
 id_fac_af INT NOT NULL AUTO_INCREMENT,
-id_afiliado INT NOT NULL,
+id_af INT NOT NULL,
+monto DECIMAL(8,2) NOT NULL,
+monto_copago DECIMAL(8,2),
+total INT NOT NULL,
+PRIMARY KEY (id_fac_af),
+FOREIGN KEY (id_af) REFERENCES afiliados(id_afiliado)
+);
+
+
+
+/* CREATE TABLE  descuentos (
+	id_desc INT NOT NULL AUTO_INCREMENT,
+	nombre VARCHAR(30) NOT NULL,
+	descripcion VARCHAR (300) DEFAULT 'Sin informacion',
+	porcentaje_descuento INT,
+	PRIMARY KEY (id_desc)
+); */
 

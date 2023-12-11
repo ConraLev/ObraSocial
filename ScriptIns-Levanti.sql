@@ -1,19 +1,29 @@
 USE obra_social;
 
-
-INSERT INTO afiliados (id_afiliado, dni, nombre, apellido, nacimiento, telefono, correo)
+INSERT INTO planes (id_plan, nombre, precio, porcentaje)
 VALUES
-( NULL, 35123321, "Santiago", "Gonzalez", "1990-10-02", 1122435201, "santiGonzalez@yahoo.com"),
-( NULL, 24123445, "Morena", "Paz", "1981-01-10", 1143512014, "PazMore@gmail.com"),
-( NULL, 22549875, "Jaime", "Rodriguez", "1981-12-01", 1143579875, "JRodriguez@hotmail.com"),
-( NULL, 42002452, "Augusto", "Gimenez", "2011-02-06", 1145624625, "GimenezAgus@live.com"),
-( NULL, 18004562, "Federico", "Fernandez", "1985-07-16", 1135734655, "Fedefer@gmail.com"),
-( NULL, 4245624, "Graciela", "Gaitan", "1970-02-06", 114564512, "GlaGaitan@yahoo.com"),
-( NULL, 42125456, "Cristian", "Gonzalez", "2000-01-20", 1157624625, "Cris2000@hotmail.com"),
-( NULL, 34999945, "Carla", "Higgins", "1990-04-27", 1145624625, "Higca@live.com.ar"),
-( NULL, 12564235, "Agustina", "Alvarez", "1980-08-18", 114561535, "AAlvarez@gov.com"),
-( NULL, 50045152, "Enzo", "Perez", "2018-12-09", 1202301503, "EnzoCamp@gmail.com"),
-( NULL, 45615852, "Rodrigo", "Fernandez","2010-07-02", 1112524154, "RodriF@gmail.com");
+(NULL, "JOVEN", 15000, 15),
+(NULL, "BASICO", 20000, 10),
+(NULL, "MEDIO", 30000, 8),
+(NULL, "PLUS", 50000, 3),
+(NULL, "JUBILADO", 35000, 10);
+
+SELECT * FROM planes;
+
+INSERT INTO afiliados (id_afiliado, dni, nombre, apellido, id_plan, nacimiento, telefono, correo)
+VALUES
+( NULL, 35123321, "Santiago", "Gonzalez", 1, "1990-10-02", 1122435201, "santiGonzalez@yahoo.com"),
+( NULL, 24123445, "Morena", "Paz", 3, "1981-01-10", 1143512014, "PazMore@gmail.com"),
+( NULL, 22549875, "Jaime", "Rodriguez", 3, "1981-12-01", 1143579875, "JRodriguez@hotmail.com"),
+( NULL, 42002452, "Augusto", "Gimenez", 1, "2011-02-06", 1145624625, "GimenezAgus@live.com"),
+( NULL, 18004562, "Federico", "Fernandez", 4, "1985-07-16", 1135734655, "Fedefer@gmail.com"),
+( NULL, 4245624, "Graciela", "Gaitan", 5, "1970-02-06", 114564512, "GlaGaitan@yahoo.com"),
+( NULL, 42125456, "Cristian", "Gonzalez", 1, "2000-01-20", 1157624625, "Cris2000@hotmail.com"),
+( NULL, 34999945, "Carla", "Higgins", 2, "1990-04-27", 1145624625, "Higca@live.com.ar"),
+( NULL, 12564235, "Agustina", "Alvarez", 3, "1980-08-18", 114561535, "AAlvarez@gov.com"),
+( NULL, 50045152, "Enzo", "Perez", 4, "2018-12-09", 1202301503, "EnzoCamp@gmail.com"),
+( NULL, 45615852, "Rodrigo", "Fernandez", 2, "2010-07-02", 1112524154, "RodriF@gmail.com");
+
 
 SELECT * FROM afiliados;
 
@@ -65,21 +75,23 @@ VALUES
 
 SELECT * FROM prestadores;
 
-INSERT INTO autorizaciones (id_aut, id_afiliado, id_prestacion, id_prestador, id_usuario, fecha, vigencia)
+INSERT INTO autorizaciones (id_aut, id_afiliado, id_prestacion, cantidad, id_prestador, id_usuario, fecha, vigencia, copago)
 VALUES
-( NULL, 3, 2, 5, 7, '2023-12-02', ('2023-12-02' + INTERVAL 60 DAY)),
-( NULL, 3, 2, 5, 8, '2023-11-22', ('2023-11-22' + INTERVAL 60 DAY)),
-( NULL, 2, 4, 1, 2, '2023-10-30', ('2023-10-30' + INTERVAL 45 DAY)),
-( NULL, 5, 3, 2, 3, '2023-10-04', ('2023-10-04' + INTERVAL 45 DAY)),
-( NULL, 11, 3, 2, 4, '2023-12-27', ('2023-12-27' + INTERVAL 45 DAY)),
-( NULL, 9, 8, 2, 2, '2023-11-06', ('2023-11-06' + INTERVAL 45 DAY)),
-( NULL, 1, 5, 10, 2, '2023-12-07', ('2023-12-07' + INTERVAL 45 DAY)),
-( NULL, 8, 2, 8, 10, '2023-10-08', ('2023-10-08' + INTERVAL 45 DAY)),
-( NULL, 6, 10, 7, 5, '2023-11-09', ('2023-11-09' + INTERVAL 45 DAY)),
-( NULL, 6, 9, 2, 9, '2023-10-10', ('2023-10-10' + INTERVAL 45 DAY)),
-( NULL, 1, 2, 11, 7, '2023-09-18', ('2023-09-18' + INTERVAL 45 DAY));
+( NULL, 3, 2, 1, 5, 7, '2023-12-02', ('2023-12-02' + INTERVAL 60 DAY), 320),
+( NULL, 3, 2, 1, 5, 8, '2023-11-22', ('2023-11-22' + INTERVAL 60 DAY), 320),
+( NULL, 2, 4, 2, 1, 2, '2023-10-30', ('2023-10-30' + INTERVAL 45 DAY), 140),
+( NULL, 5, 3, 1, 2, 3, '2023-10-04', ('2023-10-04' + INTERVAL 45 DAY), 50),
+( NULL, 11, 3, 2, 2, 4, '2023-12-27', ('2023-12-27' + INTERVAL 45 DAY), 100),
+( NULL, 9, 8, 1, 2, 2, '2023-11-06', ('2023-11-06' + INTERVAL 45 DAY), 220),
+( NULL, 1, 5, 1, 10, 2, '2023-12-07', ('2023-12-07' + INTERVAL 45 DAY), 120),
+( NULL, 8, 2, 2, 8, 10, '2023-10-08', ('2023-10-08' + INTERVAL 45 DAY), 640),
+( NULL, 6, 10, 1, 7, 5, '2023-11-09', ('2023-11-09' + INTERVAL 45 DAY), 600),
+( NULL, 6, 9, 1, 2, 9, '2023-10-10', ('2023-10-10' + INTERVAL 45 DAY), 450),
+( NULL, 1, 2, 1, 11, 7, '2023-09-18', ('2023-09-18' + INTERVAL 45 DAY), 320);
 
 SELECT * FROM autorizaciones;
+
+
 
 INSERT INTO historial_consumo (id_consumo, id_aut, fecha)
 VALUES
@@ -99,7 +111,7 @@ VALUES
 SELECT * FROM historial_consumo;
 
 
-INSERT INTO facturas (id_factura, id_prestador, monto, fecha_emision)
+INSERT INTO factura_prest (id_factura, id_prestador, monto, fecha_emision)
 VALUES
 	(NULL, 2, 128000.00, '2023-12-01'),
     (NULL, 9, 45000.00, '2023-12-05'),
@@ -109,7 +121,7 @@ VALUES
     (NULL, 4, 7000.00, '2023-11-30'),
     (NULL, 10, 6000.00, '2023-12-03');
     
-SELECT * FROM facturas;
+SELECT * FROM factura_prest;
 
 
 INSERT INTO pagos (id_pago, id_factura, monto, fecha_pago)

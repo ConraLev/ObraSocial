@@ -15,7 +15,6 @@ BEGIN
 END$$
 DELIMITER ;
 
-CALL obra_social.generar_historial(11);
 
 
 -- 2. Procedimiento para ordenar tabla segun columna informada
@@ -34,43 +33,58 @@ BEGIN
 END$$
 DELIMITER ;
 
-CALL obra_social.ordenar_tabla('autorizaciones', 'fecha', 'asc');
+CALL obra_social.ordenar_tabla('afiliados', 'dni', 'asc');
 
 
 -- 3. Procedimiento para cargar autorizacion y generar historial de consumo 
 
 DELIMITER $$
-CREATE PROCEDURE `cargar_aut_historial` (
-IN id_af INT,
-IN id_pract INT,
-IN id_prest INT,
-IN id_usu INT
+CREATE PROCEDURE `cargar_aut` (
+	IN id_af INT,
+	IN id_pract INT,
+	IN cant INT,
+	IN id_prest INT,
+	IN id_usu INT
 )
 BEGIN
 	DECLARE	fecha_actual DATE;
     DECLARE fecha_vig DATE;
-    DECLARE mensaje_error VARCHAR(100);
     DECLARE id_generado INT;
+    DECLARE plan INT;
+	DECLARE plan_af INT;
+    DECLARE porc INT;
+    DECLARE copago INT;
     
     SET fecha_actual = CURRENT_DATE();
     SET fecha_vig = CURRENT_DATE() + INTERVAL 45 DAY;
     
+    
     IF id_af IS NOT NULL AND id_pract IS NOT NULL AND id_prest IS NOT NULL AND id_usu IS NOT NULL THEN
-		INSERT INTO autorizaciones (id_aut, id_afiliado, id_prestacion, id_prestador, id_usuario, fecha, vigencia)
-		VALUES (NULL, id_af, id_pract, id_prest, id_usu, fecha_actual, fecha_vig);
+    
+		SELECT id_plan INTO plan_af
+        FROM afiliados
+        WHERE id_af = id_afiliado;
+			
+		SELECT id_plan, porcentaje INTO plan, porc
+        FROM planes
+        WHERE plan_af = id_plan;
+
+		INSERT INTO autorizaciones (id_aut, id_afiliado, id_prestacion, cantidad, id_prestador, id_usuario, fecha, vigencia, copago)
+		VALUES (NULL, id_af, id_pract, cant, id_prest, id_usu, fecha_actual, fecha_vig, calcular_copagos(id_pract, cant, porc) );
         
         SET id_generado = LAST_INSERT_ID();
         CALL generar_historial(id_generado);
         
 	ELSE
-		SET mensaje_error = 'Un campo ingresado no es valido';
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = mensaje_error;
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Un campo ingresado no es valido';
+        
     END IF;
     
 END$$
 DELIMITER ;
 
-CALL obra_social.cargar_aut_historial(9, 10, 2, 3);
+CALL obra_social.cargar_aut(7, 8, 1, 4, 3);
+
 
 
     

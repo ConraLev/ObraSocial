@@ -2,7 +2,7 @@
 -- 1- Funcion para calcular valor de copago segun practica, ingresando cantidad y porcentaje 
 
 DELIMITER $$
-CREATE FUNCTION `calcular_copagos` (id_prestacion INT, cantidad INT, porcentaje DECIMAL(4,2)) RETURNS DECIMAL(8,2) 
+CREATE FUNCTION `calcular_copagos` (id_prest INT, cantidad INT, porcentaje DECIMAL(4,2)) RETURNS DECIMAL(8,2) 
 READS SQL DATA
 BEGIN
 	DECLARE precioPrestacion DECIMAL (8,2);
@@ -11,16 +11,18 @@ BEGIN
     
     SELECT precio INTO precioPrestacion
     FROM prestaciones 
-    WHERE id_prestacion =Id_prestacion
+    WHERE id_prest = id_prestacion
     LIMIT 1;
     
     SET precioPrestacionFinal =  precioPrestacion * cantidad;
-    SET copago = precioPrestacionFinal * porcentaje / 100;
+    SET copago = (precioPrestacionFinal * porcentaje) / 100;
     RETURN copago;
 END$$
 DELIMITER ;
+SELECT * FROM prestaciones;
 
-SELECT obra_social.calcular_copagos(1, 5, 3) AS valor_copago;
+
+SELECT obra_social.calcular_copagos(3, 2, 15) AS valor_copago;
 
 
 -- 2. Funcion para calcular si el afiliado es mayor de edad
@@ -90,4 +92,4 @@ BEGIN
 END$$
 DELIMITER ;
 
-SELECT obra_social.calcular_edad(10) AS edad_afiliado;
+SELECT obra_social.calcular_edad(4) AS edad_afiliado;
