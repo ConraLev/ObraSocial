@@ -34,6 +34,18 @@ CREATE TABLE afiliados (
 	 FOREIGN KEY (id_plan) REFERENCES planes(id_plan)
 );
 
+CREATE TABLE afiliados_baja (
+	id_baja_af INT NOT NULL AUTO_INCREMENT,
+	id_afiliado INT NOT NULL,
+	dni INT NOT NULL,
+	nombre VARCHAR(30) NOT NULL,
+	apellido VARCHAR(30) NOT NULL,
+	id_plan INT NOT NULL,
+	nacimiento DATE NOT NULL,
+	telefono VARCHAR(15),
+	correo VARCHAR(30),
+	PRIMARY KEY (id_baja_af)
+);
 
 CREATE TABLE prestaciones( 
 	 id_prestacion INT NOT NULL AUTO_INCREMENT,
@@ -70,6 +82,19 @@ CREATE TABLE autorizaciones (
 );
 
 
+CREATE TABLE aut_eliminadas (
+	id_aut INT NOT NULL,
+	id_afiliado INT NOT NULL,
+	id_prestacion INT NOT NULL,
+    cantidad INT NOT NULL,
+	id_prestador INT NOT NULL,
+	id_usuario INT NOT NULL,
+	fecha DATE NOT NULL,
+	vigencia DATE NOT NULL,
+    copago INT NOT NULL,
+    PRIMARY KEY (id_aut)
+);
+
 CREATE TABLE historial_consumo (
 	id_consumo INT NOT NULL AUTO_INCREMENT,
     id_afiliado INT NOT NULL,
@@ -102,22 +127,34 @@ CREATE TABLE pagos (
 
 
 CREATE TABLE factura_af (
-id_fac_af INT NOT NULL AUTO_INCREMENT,
-id_af INT NOT NULL,
-monto DECIMAL(8,2) NOT NULL,
-monto_copago DECIMAL(8,2),
-total INT NOT NULL,
-PRIMARY KEY (id_fac_af),
-FOREIGN KEY (id_af) REFERENCES afiliados(id_afiliado)
+	id_fac_af INT NOT NULL AUTO_INCREMENT,
+	id_af INT NOT NULL,
+	monto DECIMAL(8,2) NOT NULL,
+	monto_copago DECIMAL(8,2),
+	total INT NOT NULL,
+	PRIMARY KEY (id_fac_af),
+	FOREIGN KEY (id_af) REFERENCES afiliados(id_afiliado)
 );
 
 
+CREATE TABLE auditoria_af (
+	id_mov_af INT NOT NULL AUTO_INCREMENT,
+    usuario VARCHAR(50) NOT NULL,
+    accion VARCHAR(50),
+    fecha DATE NOT NULL,
+    horario TIME NOT NULL,
+    PRIMARY KEY (id_mov_af)
+);
 
-/* CREATE TABLE  descuentos (
-	id_desc INT NOT NULL AUTO_INCREMENT,
-	nombre VARCHAR(30) NOT NULL,
-	descripcion VARCHAR (300) DEFAULT 'Sin informacion',
-	porcentaje_descuento INT,
-	PRIMARY KEY (id_desc)
-); */
+
+CREATE TABLE auditoria_aut (
+	id_mov_aut INT NOT NULL AUTO_INCREMENT,
+    usuario VARCHAR(50) NOT NULL,
+    id_aut INT NOT NULL,
+    accion VARCHAR(50),
+    fecha DATE NOT NULL,
+    horario TIME NOT NULL,
+    PRIMARY KEY (id_mov_aut),
+    FOREIGN KEY (id_aut) REFERENCES autorizaciones(id_aut)
+);
 
