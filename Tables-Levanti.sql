@@ -2,6 +2,7 @@
 CREATE SCHEMA obra_social;
 USE obra_social;
 
+
 CREATE TABLE planes (
 	id_plan INT NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(20) NOT NULL,

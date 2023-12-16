@@ -26,7 +26,7 @@ SELECT obra_social.calcular_copagos(3, 2, 15) AS valor_copago;
 -- 2. Funcion para calcular si el afiliado es mayor de edad
 
 DELIMITER $$
-CREATE FUNCTION `descuento_menores` (id_af INT) RETURNS BOOLEAN
+CREATE FUNCTION `afiliado_menor` (id_af INT) RETURNS BOOLEAN
 READS SQL DATA
 BEGIN
     DECLARE fecha_nacimiento DATE;
@@ -45,10 +45,10 @@ BEGIN
 DELIMITER ;
 
 -- Resultado afiliado menor de edad:
-SELECT obra_social.descuento_menores(4) AS Afiliado_Menor;
+SELECT obra_social.afiliado_menor(4) AS Afiliado_Menor;
 
 -- Resultado afiliado mayor de edad: 
-SELECT obra_social.descuento_menores(1) AS Afiliado_Menor;
+SELECT obra_social.afiliado_menor(1) AS Afiliado_Menor;
 
 -- 3. Funcion para contar cantidad de autorizaciones vencidas
 

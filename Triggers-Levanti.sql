@@ -60,7 +60,7 @@ CREATE TRIGGER auditoria_aut_update
 AFTER UPDATE ON autorizaciones
 FOR EACH ROW
     INSERT INTO auditoria_aut VALUES
-    (DEFAULT, USER(), 'Generacion de autorizacion', id_aut, CURRENT_DATE(), CURRENT_TIME);
+    (DEFAULT, USER(), 'Modificacion de autorizacion', id_aut, CURRENT_DATE(), CURRENT_TIME);
 $$
 DELIMITER ;
 
@@ -78,7 +78,7 @@ BEGIN
 	(OLD.id_aut, OLD.id_afiliado, OLD.id_prestacion, OLD.cantidad, OLD.id_prestador, OLD.id_usuario, OLD.fecha, OLD.vigencia, OLD.copago);
     
 	INSERT INTO auditoria_aut VALUES
-	(DEFAULT, USER(), OLD.id_aut,  'Eliminacion de afiliado', CURRENT_DATE(), CURRENT_TIME);
+	(DEFAULT, USER(), OLD.id_aut,  'Eliminacion de autorizacion', CURRENT_DATE(), CURRENT_TIME);
     
 END$$
 DELIMITER ;
